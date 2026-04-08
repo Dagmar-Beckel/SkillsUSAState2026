@@ -2,8 +2,8 @@
 
 #This line above tells the operating system to use python3.
 #This allows the user to not have to type "python3" before the filename when running the program. 
-#Type "chmod +x Fibonacci-gen.py" into the terminal first to make sure the file is executable.
-#Then, type "./Fibonacci-gen.py -c 6" instead of "python3 Fibonacci-gen.py -c 6". 
+#Type "chmod +x Fibonacci-gen" into the terminal first to make sure the file is executable.
+#Then, type "./Fibonacci-gen -c 6" instead of "python3 Fibonacci-gen -c 6". 
 #sys is a module that gives the code access to command-line arguments.
 import sys
 
