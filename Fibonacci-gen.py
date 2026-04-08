@@ -5,11 +5,32 @@ import sys
 def fibonacci(n):
 	seq = []
 	a, b = 0, 1
+      
+    #The loop will run n times, and in each iteration, it will append the current Fibonacci number (a) to the sequence list and then update a and b to the next two Fibonacci numbers.
 	for i in range(n):
 		seq.append(a)
 		a, b = b, a + b
 	return seq
 
+#This function will print the help message for the Fibonacci generator, explaining the various command-line options available to the user.
+def print_help():
+	print("""
+    Help for Fibonacci generator:
+	   
+    --help : Print this help
+	   
+    --count|-c : Calculate to this many places. IE: 0, 1, 1, 2, 3, 5 would be the result of -c 6
+    
+	--one-line: Print all the numbers on one line, separated by commas. Without this option,
+    each number in the sequence will be printed on a new line.
+    
+	--numbering: Preface each number in the sequence with it's placement: IE for “-c 6 
+	--numbering –-one-line” you would get this: “1:0, 2:1, 3:1, 4:2, 5:3, 6:5” where the first
+    number is the count and the second is the Fibonacci sequence. Note: this argument should
+    work with all other arguments.
+
+	--last-only: Only print the last number in the sequence
+    """)
 
 #sys.argv is a list (array-like) of arguments from the command line.
 #It will store all the arguments from the command line. It will skip the first argument because it's just the filename.
