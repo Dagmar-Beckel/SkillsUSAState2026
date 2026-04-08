@@ -1,61 +1,82 @@
+#sys is a module that gives the code access to command-line arguments.
+import sys
+
 #requests is a module that allows the code to make HTTP requests, like GET and POST requests
 #This allows it to work with APIs and retrieve data from them.
 #For this code, it's used to send a GET request to the Zippopotam.us API to get longitude and latitude based on country and postal code.
 import requests
 
-#This is the base URL for the Zippopotam.us API. 
-#The "country" and "postal-code" parts that are supposed to be at the end of the URL will be replaced with the actual country code and postal code when the user inputs them.
-#This is what the full url should look like: "http://api.zippopotam.us/country/postal-code"
-base_location_url = "http://api.zippopotam.us/"
+#webbrowser is a module that allows the code to open a web browser to a specific URL.
+#For this code, it's used to open the forecast link from the Weather API in a web browser.
+import webbrowser
 
 
-#This function will take in a country code and postal code, create the full URL, and send a GET request to the API.
-def get_location(country, postal_code):
-    url = f"{base_location_url}{country}/{postal_code}"
-    response = requests.get(url)
+#This function will be called when the program is run. 
+#It will take user input for a zip code, and call all the functions to eventually get forecast.
+def main():
+    zipcode = input("Enter your zip code: ")
 
-    #This if statement will check if the request was successful (Status Code 200).
-    #If it was successful, it will parse the JSON response and print the longitude, latitude, city, and state. 
-    #If it was not successful, it will print an error message with the status code.
-    if response.status_code == 200:
-        data = response.json() 
-        city = data['places'][0]['place name']
-        state = data['places'][0]['state']
-        longitude = data['places'][0]['longitude']
-        latitude = data['places'][0]['latitude']
-        print(f"City: {city}, State: {state}")
-        print(f"Longitude: {longitude}, Latitude: {latitude}")
-
-    else:
-        print(f"Error: {response.status_code}")
-
-    return response
-
-#This is the base URL for the Weather API. 
-#The "latitude" and "longitude" parts that are supposed to be at the end of the URL will be replaced with the actual latitude and longitude when the user inputs them.
-#This is what the full url should look like: "https://api.weather.gov/points/latitude,longitude"
-base_forecast_url = "https://api.weather.gov/points/"
-
-#This function will take in a latitude and longitude, create the full URL, and send a GET request to the API.
-def get_forecast(latitude, longitude):
-    url = f"{base_forecast_url}{latitude},{longitude}"
-    response = requests.get(url)
-
-    #This if statement will check if the request was successful (Status Code 200).
-    #If it was successful, it will parse the JSON response and print the forecast link.
-    #If it was not successful, it will print an error message with the status code.
-    if response.status_code == 200:
-        data = response.json() 
-        forecast = data['properties']['forecast']
-        print(f"Forecast: {forecast}")
-
-    else:
-        print(f"Error: {response.status_code}")
-
-    return response
+    #This is the base URL for the Zippopotam.us API. 
+    #The "country" and "postal-code" parts that are supposed to be at the end of the URL will be replaced with the actual country code and postal code when the user inputs them.
+    #This is what the full url should look like: "http://api.zippopotam.us/country/postal-code"
+    base_location_url = "http://api.zippopotam.us/us/"
 
 
-locationResponse = get_location("US", "54724")
-forecastResponse = get_forecast(locationResponse.json()['places'][0]['latitude'], locationResponse.json()['places'][0]['longitude'])
+    #This function will take in a country code and postal code, create the full URL, and send a GET request to the API.
+    def get_location(zipcode):
+        url = f"{base_location_url}{zipcode}"
+        response = requests.get(url)
+
+        #This if statement will check if the request was successful (Status Code 200).
+        #If it was successful, it will parse the JSON response and print the longitude, latitude, city, and state. 
+        #If it was not successful, it will print an error message with the status code.
+        if response.status_code == 200:
+            data = response.json() 
+            city = data['places'][0]['place name']
+            state = data['places'][0]['state']
+            longitude = data['places'][0]['longitude']
+            latitude = data['places'][0]['latitude']
+            print(f"City: {city}, State: {state}")
+            print(f"Longitude: {longitude}, Latitude: {latitude}")
+
+        else:
+            print(f"Error: {response.status_code}")
+
+        return response
+
+    #This is the base URL for the Weather API. 
+    #The "latitude" and "longitude" parts that are supposed to be at the end of the URL will be replaced with the actual latitude and longitude when the user inputs them.
+    #This is what the full url should look like: "https://api.weather.gov/points/latitude,longitude"
+    base_forecast_url = "https://api.weather.gov/points/"
+
+    #This function will take in a latitude and longitude, create the full URL, and send a GET request to the API.
+    def get_forecast(latitude, longitude):
+        url = f"{base_forecast_url}{latitude},{longitude}"
+        response = requests.get(url)
+
+        #This if statement will check if the request was successful (Status Code 200).
+        #If it was successful, it will parse the JSON response and print the forecast link.
+        #If it was not successful, it will print an error message with the status code.
+        if response.status_code == 200:
+            data = response.json() 
+            forecast = data['properties']['forecast']
+            print(f"Forecast: {forecast}")
+
+        else:
+            print(f"Error: {response.status_code}")
+
+        return response
+
+    #This line will call the get_location function with the country code "US" and postal code "54724".
+    locationResponse = get_location(zipcode)
+
+    #This line will print the longitude and latitude from the locationResponse.
+    forecastResponse = get_forecast(locationResponse.json()['places'][0]['latitude'], locationResponse.json()['places'][0]['longitude'])
+
+    #This line will open the forecast link from the Weather API in a web browser.
+    webbrowser.open(forecastResponse.json()['properties']['forecast'])
 
 
+#This means that the program will run only if this file is executed.
+if __name__ == "__main__":
+    main()
