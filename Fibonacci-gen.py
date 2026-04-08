@@ -5,9 +5,7 @@ import sys
 def fibonacci(n):
 	seq = []
 	a, b = 0, 1
-      
-    #The loop will run n times, and in each iteration, it will append the current Fibonacci number (a) to the sequence list and then update a and b to the next two Fibonacci numbers.
-	for i in range(n):
+	for _ in range(n):
 		seq.append(a)
 		a, b = b, a + b
 	return seq
@@ -40,13 +38,15 @@ args = sys.argv[1:]
 #This function will be called when the program is run. 
 #It will check the arguments and call the correct functions based on what the user entered.
 def main():
-    #This variable will hold the count of Fibonacci numbers to generate, which will be set based on user input.
-    #Right now the intial value is 6.
-    #count = 6
+    #If user types "--help", function print_help() will be called.
+    if "--help" in args:
+        print_help()
+        return
 
-    #This "count" variable is set up so that if statements can just check if the variable is true or false. 
-    #The variable check if the variable is in args
+    #These variables are set up so that if statements can just check if the variable is true or false. 
+    #The variables check if it's in args
     count = None
+    one_line = "--one--line" in args
 
     #if user types "-c" or "--count", the next argument, which is the number, will be read and stored in the count variable.
     if "-c" in args:
@@ -54,21 +54,26 @@ def main():
     elif "--count" in args:
         count = int(args[args.index("--count") + 1])
 
+    #If user doesn't type "-c" or "--count", program will print a message telling them to type it
+    if count is None:
+        print("Error: Please provide count using -c or --count")
+        return
 
     #This calls the fibonacci function with the user entered "count".
     seq = fibonacci(count)
 
-    #If user types "--help", function print_help() will be called.
-    if "--help" in args:
-        print_help()
-        return
-
-    #This is to test that the fibonacci function is working correctly. 
-    #It will print the list of Fibonacci numbers generated.
-    print(seq)
+    
+    
+    #If "one_line" variable is "true", all numbers will be printed on one line operated by commas.
+    #If it's in the arguments(args), "one_line" variable is "true".
+    #Else, each number is printed on a separate line.
+    if one_line:
+        print(",".join(map(str, seq)))
+    else:
+        for num in seq:
+            print(num)
 
 
     #This means that the program will run only if this file is executed.
-    if __name__ == "__main__":
-        main()
-
+if __name__ == "__main__":
+    main()
