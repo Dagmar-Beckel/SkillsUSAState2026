@@ -45,6 +45,8 @@ args = sys.argv[1:]
 #This function will be called when the program is run. 
 #It will check the arguments and call the correct functions based on what the user entered.
 def main():
+    print(10/3)
+    
     #If user types "--help", function print_help() will be called.
     if "--help" in args:
         print_help()
