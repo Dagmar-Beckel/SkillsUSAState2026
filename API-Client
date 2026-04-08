@@ -12,7 +12,7 @@ import webbrowser
 
 #This function will be called when the program is run. 
 #It will take user input for a zip code, and call all the functions to eventually get forecast.
-zipcode = input("Enter your zip code: ")
+zipcode = input("Enter your US zip code: ")
 
 #This is the base URL for the Zippopotam.us API. 
 #The "country" and "postal-code" parts that are supposed to be at the end of the URL will be replaced with the actual country code and postal code when the user inputs them.
@@ -83,4 +83,4 @@ elif forecastChoice == "Hourly":
     print(f"Hourly Forecast: {forecastHourly}")
     webbrowser.open(forecastHourly)
 else:
-    print("Invalid choice.")
+    print("Invalid choice.")    
