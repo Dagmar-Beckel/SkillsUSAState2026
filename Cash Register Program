@@ -51,7 +51,7 @@ def addInventory():
 
 #This function will be called when the user chooses the Admin role after adding inventory.
 #It will calculate and print the current inventory of items, units on hand, cost of goods
-def adminOutput():
+def adminOutput(inventory):
     CurrentInventoryOfItems = len(inventory)
     UnitsOnHand = sum(item["number_on_hand"] for item in inventory)
     CostOfGoodsSold = sum(item["unit_cost"] * item["number_on_hand"] for item in inventory)
@@ -67,16 +67,16 @@ def adminOutput():
     
 
 
-while True:
-    #This line will call the addInventory function to allow the user to add items to the inventory.
-    addInventory()
 
-    #This line will ask which role the user is, and call the adminOutput function if they are an Admin. 
-    # If they are a Cashier, it will print a message saying it's not implemented yet.
-    role = input("Are you Admin or Cashier? (Admin/Cashier/Exit): ")
-    if role == "Admin":
-        adminOutput(inventory)
-    elif role == "Cashier":
-        print("Cashier functionality not implemented yet.")
-    else:
-        print("Invalid choice.")    
+#This line will call the addInventory function to allow the user to add items to the inventory.
+addInventory()
+
+#This line will ask which role the user is, and call the adminOutput function if they are an Admin. 
+# If they are a Cashier, it will print a message saying it's not implemented yet.
+role = input("Are you Admin or Cashier? (Admin/Cashier/Exit): ")
+if role == "Admin":
+    adminOutput(inventory)
+elif role == "Cashier":
+    print("Cashier functionality not implemented yet.")
+else:
+    print("Invalid choice.")    
