@@ -1,0 +1,82 @@
+#This array will store the inventory of items. 
+# Each item will be a dictionary with the keys "description", "unit_cost", "sale_price", and "number_on_hand".
+inventory = []
+
+#This function will be called when the user chooses the Admin role.
+# It will allow the user to add items to the inventory by entering the description, unit cost, sale price, and number on hand.
+def addInventory():
+    while True:
+        #This line will print a message telling the user how to add items and how to stop adding items.
+        #Then, it will take the user's input. 
+        print("If you want to stop adding items, type 'exit'.")
+        inventor_input = input(
+            "Add an item as: Description, Unit Cost, Sale Price, Number on Hand: "
+        ).strip()
+
+        #If user types "exit", the loop will break and the function will end.
+        if inventor_input.lower() == "exit":
+            break
+
+        #This line will split the user input by commas and remove any extra spaces, and store the values in a list called "values_list".
+        values_list = [val.strip() for val in inventor_input.split(",")]
+
+        #This line will check if the user entered exactly 4 values. If not, it will print an error message and continue the loop again.
+        if len(values_list) != 4:
+            print("Please enter exactly 4 values separated by commas.")
+            continue
+
+        #This line will store the first value in the list as the description
+        #Try and convert the second and third values to floats for unit cost and sale price
+        #Try and convert the fourth value to an integer for number on hand.
+        description = values_list[0]
+        try:
+            unit_cost = float(values_list[1])
+            sale_price = float(values_list[2])
+            number_on_hand = int(values_list[3])
+        except ValueError:
+            print("Unit cost and sale price must be numbers, and number on hand must be a whole number.")
+            continue
+
+        #This line will create a dictionary for the item with the description, unit cost, sale price, and number on hand, and add it to the inventory list.
+        item = {
+            "description": description,
+            "unit_cost": unit_cost,
+            "sale_price": sale_price,
+            "number_on_hand": number_on_hand
+        }
+
+        inventory.append(item)
+        print("Item added successfully.")
+
+
+#This function will be called when the user chooses the Admin role after adding inventory.
+#It will calculate and print the current inventory of items, units on hand, cost of goods
+def adminOutput():
+    CurrentInventoryOfItems = len(inventory)
+    UnitsOnHand = sum(item["number_on_hand"] for item in inventory)
+    CostOfGoodsSold = sum(item["unit_cost"] * item["number_on_hand"] for item in inventory)
+    SalePrice = sum(item["sale_price"] * item["number_on_hand"] for item in inventory)
+    ProjectedProfit = SalePrice - CostOfGoodsSold
+
+    #These line will print the current inventory of items, units on hand, cost of goods sold, sale price, and projected profit.
+    print(f"Current Inventory of Items: {CurrentInventoryOfItems}")
+    print(f"Units on Hand: {UnitsOnHand}")
+    print(f"Cost of Goods Sold: ${CostOfGoodsSold:.2f}")
+    print(f"Sale Price: ${SalePrice:.2f}")
+    print(f"Projected Profit: ${ProjectedProfit:.2f}")
+    
+
+
+while True:
+    #This line will call the addInventory function to allow the user to add items to the inventory.
+    addInventory()
+
+    #This line will ask which role the user is, and call the adminOutput function if they are an Admin. 
+    # If they are a Cashier, it will print a message saying it's not implemented yet.
+    role = input("Are you Admin or Cashier? (Admin/Cashier/Exit): ")
+    if role == "Admin":
+        adminOutput(inventory)
+    elif role == "Cashier":
+        print("Cashier functionality not implemented yet.")
+    else:
+        print("Invalid choice.")    
