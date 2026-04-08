@@ -47,6 +47,7 @@ def addInventory():
 
         inventory.append(item)
         print("Item added successfully.")
+        print("")
 
 
 #This function will be called when the user chooses the Admin role after adding inventory.
@@ -59,11 +60,14 @@ def adminOutput(inventory):
     ProjectedProfit = SalePrice - CostOfGoodsSold
 
     #These line will print the current inventory of items, units on hand, cost of goods sold, sale price, and projected profit.
+    print("")
+    print("\n--- Inventory Summary ---")
     print(f"Current Inventory of Items: {CurrentInventoryOfItems}")
     print(f"Units on Hand: {UnitsOnHand}")
     print(f"Cost of Goods Sold: ${CostOfGoodsSold:.2f}")
     print(f"Sale Price: ${SalePrice:.2f}")
     print(f"Projected Profit: ${ProjectedProfit:.2f}")
+    print("")
     
 
 
@@ -73,6 +77,7 @@ addInventory()
 
 #This line will ask which role the user is, and call the adminOutput function if they are an Admin. 
 # If they are a Cashier, it will print a message saying it's not implemented yet.
+print("")
 role = input("Are you Admin or Cashier? (Admin/Cashier/Exit): ")
 if role == "Admin":
     adminOutput(inventory)
