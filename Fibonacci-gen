@@ -4,6 +4,7 @@
 #This allows the user to not have to type "python3" before the filename when running the program. 
 #Type "chmod +x Fibonacci-gen" into the terminal first to make sure the file is executable.
 #Then, type "./Fibonacci-gen -c 6" instead of "python3 Fibonacci-gen -c 6". 
+
 #sys is a module that gives the code access to command-line arguments.
 import sys
 
@@ -50,13 +51,13 @@ def main():
         return
 
     #These variables are set up so that if statements can just check if the variable is true or false. 
-    #The variables check if it's in args
+    #The variables check if it's in arguments(args).
     count = None
     last_only = "--last-only" in args
     numbering = "--numbering" in args
     one_line = "--one-line" in args
 
-    #if user types "-c" or "--count", the next argument, which is the number, will be read and stored in the count variable.
+    #If user types "-c" or "--count", the next argument, which is the number, will be read and stored in the count variable.
     if "-c" in args:
         count = int(args[args.index("-c") + 1])
     elif "--count" in args:
