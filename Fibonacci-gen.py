@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+#This line above tells the operating system to use python3.
+#This allows the user to not have to type "python3" before the filename when running the program. 
+#Type "chmod +x Fibonacci-gen.py" into the terminal first to make sure the file is executable.
+#Then, type "./Fibonacci-gen.py -c 6" instead of "python3 Fibonacci-gen.py -c 6". 
 #sys is a module that gives the code access to command-line arguments.
 import sys
 
@@ -23,7 +29,7 @@ def print_help():
     each number in the sequence will be printed on a new line.
     
     --numbering: Preface each number in the sequence with it's placement: IE for “-c 6 
-	--numbering –-one-line” you would get this: “1:0, 2:1, 3:1, 4:2, 5:3, 6:5” where the first
+    --numbering --one-line” you would get this: “1:0, 2:1, 3:1, 4:2, 5:3, 6:5” where the first
     number is the count and the second is the Fibonacci sequence. Note: this argument should
     work with all other arguments.
 
