@@ -46,7 +46,8 @@ def main():
     #These variables are set up so that if statements can just check if the variable is true or false. 
     #The variables check if it's in args
     count = None
-    one_line = "--one--line" in args
+    one_line = "--one-line" in args
+    numbering = "--numbering" in args
 
     #if user types "-c" or "--count", the next argument, which is the number, will be read and stored in the count variable.
     if "-c" in args:
@@ -62,7 +63,11 @@ def main():
     #This calls the fibonacci function with the user entered "count".
     seq = fibonacci(count)
 
-    
+    #If "numbering" variable is "true", a list will be made with the numbers placement and it's fibonacci number.
+    #If it's in the arguments(args), "numbering" variable is "true".
+    #Enumerate(seq) gives (index, value) pairs.
+    if numbering:
+        seq = [f"{i+1}:{num}" for i, num in enumerate(seq)]
     
     #If "one_line" variable is "true", all numbers will be printed on one line operated by commas.
     #If it's in the arguments(args), "one_line" variable is "true".
