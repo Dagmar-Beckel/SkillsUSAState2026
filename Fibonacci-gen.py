@@ -1,4 +1,4 @@
-#sys is a module that gives the code access to command-line arguments
+#sys is a module that gives the code access to command-line arguments.
 import sys
 
 #This function will return the full list of Fibonacci numbers based on how many numbers it needs to generate (n).
@@ -40,14 +40,25 @@ args = sys.argv[1:]
 #This function will be called when the program is run. 
 #It will check the arguments and call the correct functions based on what the user entered.
 def main():
-    #This variable will hold the count of Fibonacci numbers to generate, which will be set based on user input
+    #This variable will hold the count of Fibonacci numbers to generate, which will be set based on user input.
     #Right now the intial value is 6.
-    count = 6
+    #count = 6
 
-    #This calls the fibonacci function with the user entered "count"
+    #This "count" variable is set up so that if statements can just check if the variable is true or false. 
+    #The variable check if the variable is in args
+    count = None
+
+    #if user types "-c" or "--count", the next argument, which is the number, will be read and stored in the count variable.
+    if "-c" in args:
+        count = int(args[args.index("-c") + 1])
+    elif "--count" in args:
+        count = int(args[args.index("--count") + 1])
+
+
+    #This calls the fibonacci function with the user entered "count".
     seq = fibonacci(count)
 
-    #if user types "--help", function print_help() will be called
+    #If user types "--help", function print_help() will be called.
     if "--help" in args:
         print_help()
         return
@@ -57,7 +68,7 @@ def main():
     print(seq)
 
 
-#this means that the program will run only if this file is executed
-if __name__ == "__main__":
-    main()
+    #This means that the program will run only if this file is executed.
+    if __name__ == "__main__":
+        main()
 
