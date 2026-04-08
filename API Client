@@ -6,12 +6,12 @@ import requests
 #This is the base URL for the Zippopotam.us API. 
 #The "country" and "postal-code" parts that are supposed to be at the end of the URL will be replaced with the actual country code and postal code when the user inputs them.
 #This is what the full url should look like: "http://api.zippopotam.us/country/postal-code"
-base_url = "http://api.zippopotam.us/"
+base_location_url = "http://api.zippopotam.us/"
 
 
 #This function will take in a country code and postal code, create the full URL, and send a GET request to the API.
 def get_location(country, postal_code):
-    url = f"{base_url}{country}/{postal_code}"
+    url = f"{base_location_url}{country}/{postal_code}"
     response = requests.get(url)
 
     #This if statement will check if the request was successful (Status Code 200).
@@ -31,8 +31,31 @@ def get_location(country, postal_code):
 
     return response
 
+#This is the base URL for the Weather API. 
+#The "latitude" and "longitude" parts that are supposed to be at the end of the URL will be replaced with the actual latitude and longitude when the user inputs them.
+#This is what the full url should look like: "https://api.weather.gov/points/latitude,longitude"
+base_forecast_url = "https://api.weather.gov/points/"
+
+#This function will take in a latitude and longitude, create the full URL, and send a GET request to the API.
+def get_forecast(latitude, longitude):
+    url = f"{base_forecast_url}{latitude},{longitude}"
+    response = requests.get(url)
+
+    #This if statement will check if the request was successful (Status Code 200).
+    #If it was successful, it will parse the JSON response and print the forecast link.
+    #If it was not successful, it will print an error message with the status code.
+    if response.status_code == 200:
+        data = response.json() 
+        forecast = data['properties']['forecast']
+        print(f"Forecast: {forecast}")
+
+    else:
+        print(f"Error: {response.status_code}")
+
+    return response
 
 
-response = get_location("US", "54724")
+locationResponse = get_location("US", "54724")
+forecastResponse = get_forecast(locationResponse.json()['places'][0]['latitude'], locationResponse.json()['places'][0]['longitude'])
 
 
